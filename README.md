@@ -4,6 +4,8 @@
 
 An unofficial Google Apps Script client for the Exa.ai API. This library provides a simple way to use Exa.ai's semantic search capabilities directly in Google Apps Script projects.
 
+![Exa.ai Google Apps Script Demo](exa_ai_google_apps_script.gif)
+
 ## 🌟 Features
 
 - Full compatibility with Exa.ai API
