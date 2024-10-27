@@ -129,20 +129,44 @@ class Exa {
   searchAndContents(query, options = {}) {
     Logger.log('Query', query);
 
+    // Construct the contents object first
+    const contents = {
+      text: options.text && {
+        enabled: true,
+        ...options.text
+      }
+    };
+
+    // Add highlights and summary if they exist
+    if (options.highlights) {
+      contents.highlights = {
+        query: options.highlights.query,
+        numSentences: options.highlights.numSentences,
+        highlightsPerUrl: options.highlights.highlightsPerUrl
+      };
+    }
+
+    if (options.summary) {
+      contents.summary = {
+        query: options.summary.query
+      };
+    }
+
+    // Construct the main payload
     const payload = {
       query,
       type: options.type || "neural",
       useAutoprompt: options.useAutoprompt !== undefined ? options.useAutoprompt : true,
       numResults: options.numResults || 10,
-      ...options,
-      contents: {
-        text: options.text && {
-          enabled: true,
-          ...options.text
-        },
-        highlights: options.highlights,
-        summary: options.summary
-      }
+      category: options.category,
+      livecrawl: options.livecrawl,
+      startPublishedDate: options.startPublishedDate,
+      endPublishedDate: options.endPublishedDate,
+      startCrawlDate: options.startCrawlDate,
+      endCrawlDate: options.endCrawlDate,
+      includeDomains: options.includeDomains,
+      excludeDomains: options.excludeDomains,
+      contents
     };
 
     Logger.log('Request payload', payload);
